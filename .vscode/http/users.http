@@ -1,0 +1,50 @@
+@baseUrl = http://localhost:8081/api/v1/users
+@token = {{login.response.body.token}}
+
+### Register User
+# @name register
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123",
+  "firstName": "John",
+  "lastName": "Doe"
+}
+
+### Login
+# @name login
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+### Get User by ID (replace UUID)
+GET {{baseUrl}}/00000000-0000-0000-0000-000000000000
+Authorization: Bearer {{token}}
+
+### Register - Invalid Email (expect 400)
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+  "email": "not-an-email",
+  "password": "password123",
+  "firstName": "Bad",
+  "lastName": "User"
+}
+
+### Register - Duplicate Email (expect 409)
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123",
+  "firstName": "Duplicate",
+  "lastName": "User"
+}

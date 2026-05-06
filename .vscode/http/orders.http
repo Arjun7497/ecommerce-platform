@@ -1,0 +1,43 @@
+@baseUrl = http://localhost:8083/api/v1/orders
+@userId = 00000000-0000-0000-0000-000000000001
+@productId = 00000000-0000-0000-0000-000000000002
+
+### Create Order
+# @name createOrder
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "userId": "{{userId}}",
+  "shippingAddress": "123 Main Street, New York, NY 10001",
+  "items": [
+    {
+      "productId": "{{productId}}",
+      "quantity": 2
+    }
+  ]
+}
+
+### Get Order by ID
+GET {{baseUrl}}/{{createOrder.response.body.id}}
+
+### Get Orders by User
+GET {{baseUrl}}/user/{{userId}}?page=0&size=10
+
+### Update Order Status
+PATCH {{baseUrl}}/{{createOrder.response.body.id}}/status
+Content-Type: application/json
+
+{
+  "status": "CONFIRMED"
+}
+
+### Create Order - No Items (expect 400)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "userId": "{{userId}}",
+  "shippingAddress": "123 Main St",
+  "items": []
+}

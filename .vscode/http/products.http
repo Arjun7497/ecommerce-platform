@@ -1,0 +1,53 @@
+@baseUrl = http://localhost:8082/api/v1/products
+
+### Create Product
+# @name createProduct
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "Gaming Laptop",
+  "description": "High-performance laptop for gaming",
+  "price": 1299.99,
+  "stockQuantity": 25,
+  "category": "Electronics",
+  "imageUrl": "https://example.com/laptop.jpg"
+}
+
+### Get All Products (paginated)
+GET {{baseUrl}}?page=0&size=10&sortBy=createdAt
+
+### Get Product by ID (replace UUID)
+GET {{baseUrl}}/{{createProduct.response.body.id}}
+
+### Get Products by Category
+GET {{baseUrl}}/category/Electronics?page=0&size=10
+
+### Search Products
+GET {{baseUrl}}/search?keyword=laptop&page=0&size=10
+
+### Update Product (replace UUID)
+PUT {{baseUrl}}/{{createProduct.response.body.id}}
+Content-Type: application/json
+
+{
+  "name": "Gaming Laptop Pro",
+  "description": "Updated description",
+  "price": 1499.99,
+  "stockQuantity": 20,
+  "category": "Electronics"
+}
+
+### Delete Product (soft delete, replace UUID)
+DELETE {{baseUrl}}/{{createProduct.response.body.id}}
+
+### Create Product - Invalid Price (expect 400)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "Bad Product",
+  "price": -10.00,
+  "stockQuantity": 5,
+  "category": "Misc"
+}
