@@ -1,0 +1,74 @@
+{
+  "folders": [
+    { "name": "Root", "path": "." },
+    { "name": "Frontend (React)", "path": "./frontend" },
+    { "name": "User Service", "path": "./services/user-service" },
+    { "name": "Product Service", "path": "./services/product-service" },
+    { "name": "Order Service", "path": "./services/order-service" },
+    { "name": "Infrastructure", "path": "./infrastructure" }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "files.exclude": {
+      "**/target": true,
+      "**/node_modules": true,
+      "**/.DS_Store": true
+    },
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.test.defaultConfig": "junit5",
+    "spring-boot.ls.java.home": "",
+    "eslint.workingDirectories": ["frontend"],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "[java]": {
+      "editor.defaultFormatter": "redhat.java"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[yaml]": {
+      "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "maven.terminal.useJavaHome": true,
+    "docker.showStartPage": false,
+    "terminal.integrated.profiles.windows": {
+      "PowerShell": {
+        "source": "PowerShell",
+        "icon": "terminal-powershell"
+      }
+    },
+    "java.compile.nullAnalysis.mode": "automatic"
+  },
+  "extensions": {
+    "recommendations": [
+      "vscjava.vscode-java-pack",
+      "vmware.vscode-spring-boot",
+      "vscjava.vscode-spring-initializr",
+      "vscjava.vscode-spring-boot-dashboard",
+      "redhat.java",
+      "vscjava.vscode-maven",
+      "vscjava.vscode-java-test",
+      "redhat.vscode-yaml",
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "dsznajder.es7-react-js-snippets",
+      "ms-azuretools.vscode-docker",
+      "ms-vscode.vscode-typescript-next",
+      "bradlc.vscode-tailwindcss",
+      "Pivotal.vscode-boot-dev-pack",
+      "cucumberopen.cucumber-official",
+      "cschleiden.vscode-github-actions",
+      "hashicorp.terraform",
+      "mtxr.sqltools",
+      "mtxr.sqltools-driver-pg",
+      "humao.rest-client",
+      "formulahendry.auto-rename-tag",
+      "PKief.material-icon-theme"
+    ]
+  }
+}
