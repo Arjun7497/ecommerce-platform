@@ -1,0 +1,24 @@
+{
+  "recommendations": [
+    "vscjava.vscode-java-pack",
+    "vmware.vscode-spring-boot",
+    "vscjava.vscode-spring-boot-dashboard",
+    "vscjava.vscode-maven",
+    "vscjava.vscode-java-test",
+    "redhat.java",
+    "redhat.vscode-yaml",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "dsznajder.es7-react-js-snippets",
+    "ms-azuretools.vscode-docker",
+    "bradlc.vscode-tailwindcss",
+    "cucumberopen.cucumber-official",
+    "cschleiden.vscode-github-actions",
+    "hashicorp.terraform",
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-pg",
+    "humao.rest-client",
+    "PKief.material-icon-theme",
+    "formulahendry.auto-rename-tag"
+  ]
+}

@@ -1,0 +1,280 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+
+    // ════════════════════════════════════════════════════════════════════════
+    // DOCKER / DATABASE
+    // ════════════════════════════════════════════════════════════════════════
+    {
+      "label": "Start Databases",
+      "type": "shell",
+      "command": "docker compose up postgres-user postgres-product postgres-order -d --wait",
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "group": "docker", "panel": "shared", "reveal": "silent" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Start All (Docker Compose)",
+      "type": "shell",
+      "command": "docker compose up --build",
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "group": "docker", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": [],
+      "isBackground": true
+    },
+    {
+      "label": "Stop All (Docker Compose)",
+      "type": "shell",
+      "command": "docker compose down",
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "group": "docker", "panel": "shared", "reveal": "silent" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Stop All + Wipe Volumes",
+      "type": "shell",
+      "command": "docker compose down -v",
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "group": "docker", "panel": "shared", "reveal": "always" },
+      "problemMatcher": []
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
+    // USER SERVICE
+    // ════════════════════════════════════════════════════════════════════════
+    {
+      "label": "user: Unit Tests",
+      "type": "shell",
+      "command": "mvn test -Dtest=\"**/*Test\" --no-transfer-progress",
+      "options": { "cwd": "${workspaceFolder}/services/user-service" },
+      "group": { "kind": "test", "isDefault": false },
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": "$maven"
+    },
+    {
+      "label": "user: Integration Tests",
+      "type": "shell",
+      "command": "mvn verify -Dtest=\"**/*IT\" --no-transfer-progress",
+      "options": { "cwd": "${workspaceFolder}/services/user-service" },
+      "group": "test",
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": "$maven"
+    },
+    {
+      "label": "user: BDD Tests (Cucumber)",
+      "type": "shell",
+      "command": "mvn test -Dtest=\"CucumberRunner\" --no-transfer-progress",
+      "options": { "cwd": "${workspaceFolder}/services/user-service" },
+      "group": "test",
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": "$maven"
+    },
+    {
+      "label": "user: All Tests + Coverage",
+      "type": "shell",
+      "command": "mvn verify --no-transfer-progress",
+      "options": { "cwd": "${workspaceFolder}/services/user-service" },
+      "group": "test",
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": "$maven"
+    },
+    {
+      "label": "user: Open Coverage Report",
+      "type": "shell",
+      "command": "start target/site/jacoco/index.html",
+      "options": { "cwd": "${workspaceFolder}/services/user-service" },
+      "presentation": { "panel": "shared", "reveal": "silent" },
+      "problemMatcher": []
+    },
+    {
+      "label": "user: Open Cucumber Report",
+      "type": "shell",
+      "command": "start target/cucumber-reports/cucumber.html",
+      "options": { "cwd": "${workspaceFolder}/services/user-service" },
+      "presentation": { "panel": "shared", "reveal": "silent" },
+      "problemMatcher": []
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
+    // PRODUCT SERVICE
+    // ════════════════════════════════════════════════════════════════════════
+    {
+      "label": "product: Unit Tests",
+      "type": "shell",
+      "command": "mvn test -Dtest=\"**/*Test\" --no-transfer-progress",
+      "options": { "cwd": "${workspaceFolder}/services/product-service" },
+      "group": "test",
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": "$maven"
+    },
+    {
+      "label": "product: Integration Tests",
+      "type": "shell",
+      "command": "mvn verify -Dtest=\"**/*IT\" --no-transfer-progress",
+      "options": { "cwd": "${workspaceFolder}/services/product-service" },
+      "group": "test",
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": "$maven"
+    },
+    {
+      "label": "product: BDD Tests (Cucumber)",
+      "type": "shell",
+      "command": "mvn test -Dtest=\"CucumberRunner\" --no-transfer-progress",
+      "options": { "cwd": "${workspaceFolder}/services/product-service" },
+      "group": "test",
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": "$maven"
+    },
+    {
+      "label": "product: All Tests + Coverage",
+      "type": "shell",
+      "command": "mvn verify --no-transfer-progress",
+      "options": { "cwd": "${workspaceFolder}/services/product-service" },
+      "group": "test",
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": "$maven"
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
+    // ORDER SERVICE
+    // ════════════════════════════════════════════════════════════════════════
+    {
+      "label": "order: Unit Tests",
+      "type": "shell",
+      "command": "mvn test -Dtest=\"**/*Test\" --no-transfer-progress",
+      "options": { "cwd": "${workspaceFolder}/services/order-service" },
+      "group": "test",
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": "$maven"
+    },
+    {
+      "label": "order: All Tests + Coverage",
+      "type": "shell",
+      "command": "mvn verify --no-transfer-progress",
+      "options": { "cwd": "${workspaceFolder}/services/order-service" },
+      "group": "test",
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": "$maven"
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
+    // ALL BACKEND TESTS
+    // ════════════════════════════════════════════════════════════════════════
+    {
+      "label": "ALL: Backend Unit Tests",
+      "dependsOn": [
+        "user: Unit Tests",
+        "product: Unit Tests",
+        "order: Unit Tests"
+      ],
+      "dependsOrder": "parallel",
+      "group": { "kind": "test", "isDefault": true },
+      "presentation": { "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "ALL: Backend Full Test Suite",
+      "dependsOn": [
+        "user: All Tests + Coverage",
+        "product: All Tests + Coverage",
+        "order: All Tests + Coverage"
+      ],
+      "dependsOrder": "parallel",
+      "group": "test",
+      "presentation": { "panel": "shared" },
+      "problemMatcher": []
+    },
+
+    // ════════════════════════════════════════════════════════════════════════
+    // FRONTEND
+    // ════════════════════════════════════════════════════════════════════════
+    {
+      "label": "Start Frontend Dev Server",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "isBackground": true,
+      "presentation": { "group": "frontend", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": {
+        "pattern": { "regexp": "." },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "VITE",
+          "endsPattern": "Local:"
+        }
+      }
+    },
+    {
+      "label": "frontend: Install Dependencies",
+      "type": "shell",
+      "command": "npm install",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "presentation": { "group": "frontend", "panel": "shared", "reveal": "always" },
+      "problemMatcher": []
+    },
+    {
+      "label": "frontend: Unit Tests",
+      "type": "shell",
+      "command": "npm run test",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "group": "test",
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": []
+    },
+    {
+      "label": "frontend: Unit Tests Watch",
+      "type": "shell",
+      "command": "npm run test:watch",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "isBackground": true,
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": []
+    },
+    {
+      "label": "frontend: Unit Tests + Coverage",
+      "type": "shell",
+      "command": "npm run test:coverage",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "group": "test",
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": []
+    },
+    {
+      "label": "frontend: Open Coverage Report",
+      "type": "shell",
+      "command": "start coverage/index.html",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "presentation": { "panel": "shared", "reveal": "silent" },
+      "problemMatcher": []
+    },
+    {
+      "label": "frontend: Cypress Open (Interactive)",
+      "type": "shell",
+      "command": "npx cypress open",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "isBackground": true,
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": []
+    },
+    {
+      "label": "frontend: Cypress Run (Headless BDD)",
+      "type": "shell",
+      "command": "npm run test:e2e",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "group": "test",
+      "presentation": { "group": "tests", "panel": "dedicated", "reveal": "always" },
+      "problemMatcher": []
+    },
+    {
+      "label": "frontend: Build",
+      "type": "shell",
+      "command": "npm run build",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "group": "build",
+      "presentation": { "group": "frontend", "panel": "shared", "reveal": "always" },
+      "problemMatcher": []
+    }
+  ]
+}

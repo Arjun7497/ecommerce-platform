@@ -1,0 +1,72 @@
+{
+  "java.project.referencedLibraries": [],
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.test.config": {
+    "workingDirectory": "${workspaceFolder}"
+  },
+  "maven.executable.path": "",
+  "maven.terminal.favorites": [
+    {
+      "alias": "test",
+      "command": "test --no-transfer-progress"
+    },
+    {
+      "alias": "verify",
+      "command": "verify --no-transfer-progress"
+    },
+    {
+      "alias": "package",
+      "command": "package -DskipTests --no-transfer-progress"
+    }
+  ],
+  "spring-boot.ls.problem.boot-java.MISSING_CONFIGURATION_ANNOTATION.severity": "WARNING",
+  "editor.rulers": [120],
+  "files.associations": {
+    "*.feature": "cucumber",
+    "*.yml": "yaml",
+    "Dockerfile*": "dockerfile"
+  },
+  "sqltools.connections": [
+    {
+      "name": "User DB (local)",
+      "driver": "PostgreSQL",
+      "server": "localhost",
+      "port": 5432,
+      "database": "userdb",
+      "username": "postgres",
+      "password": "postgres"
+    },
+    {
+      "name": "Product DB (local)",
+      "driver": "PostgreSQL",
+      "server": "localhost",
+      "port": 5433,
+      "database": "productdb",
+      "username": "postgres",
+      "password": "postgres"
+    },
+    {
+      "name": "Order DB (local)",
+      "driver": "PostgreSQL",
+      "server": "localhost",
+      "port": 5434,
+      "database": "orderdb",
+      "username": "postgres",
+      "password": "postgres"
+    }
+  ],
+  "cucumberautocomplete.steps": [
+    "services/*/src/test/java/**/*Steps.java",
+    "frontend/cypress/support/step_definitions/**/*.js"
+  ],
+  "cucumberautocomplete.syncfeatures": "services/*/src/test/resources/features/*.feature",
+  "rest-client.environmentVariables": {
+    "local": {
+      "user_service": "http://localhost:8081",
+      "product_service": "http://localhost:8082",
+      "order_service": "http://localhost:8083",
+      "token": ""
+    }
+  }
+}

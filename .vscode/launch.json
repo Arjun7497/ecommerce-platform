@@ -1,0 +1,123 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+
+    // ─── Java Spring Boot Services ─────────────────────────────────────────────
+    {
+      "type": "java",
+      "name": "▶ User Service",
+      "request": "launch",
+      "mainClass": "com.ecommerce.user.UserServiceApplication",
+      "projectName": "user-service",
+      "cwd": "${workspaceFolder}/services/user-service",
+      "env": {
+        "SPRING_DATASOURCE_URL": "jdbc:postgresql://localhost:5432/userdb",
+        "SPRING_DATASOURCE_USERNAME": "postgres",
+        "SPRING_DATASOURCE_PASSWORD": "postgres",
+        "JWT_SECRET": "local-dev-secret-key-minimum-256-bits-long"
+      },
+      "vmArgs": "-Dspring.profiles.active=local",
+      "preLaunchTask": "Start Databases"
+    },
+    {
+      "type": "java",
+      "name": "▶ Product Service",
+      "request": "launch",
+      "mainClass": "com.ecommerce.product.ProductServiceApplication",
+      "projectName": "product-service",
+      "cwd": "${workspaceFolder}/services/product-service",
+      "env": {
+        "SPRING_DATASOURCE_URL": "jdbc:postgresql://localhost:5433/productdb",
+        "SPRING_DATASOURCE_USERNAME": "postgres",
+        "SPRING_DATASOURCE_PASSWORD": "postgres"
+      },
+      "vmArgs": "-Dspring.profiles.active=local",
+      "preLaunchTask": "Start Databases"
+    },
+    {
+      "type": "java",
+      "name": "▶ Order Service",
+      "request": "launch",
+      "mainClass": "com.ecommerce.order.OrderServiceApplication",
+      "projectName": "order-service",
+      "cwd": "${workspaceFolder}/services/order-service",
+      "env": {
+        "SPRING_DATASOURCE_URL": "jdbc:postgresql://localhost:5434/orderdb",
+        "SPRING_DATASOURCE_USERNAME": "postgres",
+        "SPRING_DATASOURCE_PASSWORD": "postgres",
+        "PRODUCT_SERVICE_URL": "http://localhost:8082",
+        "USER_SERVICE_URL": "http://localhost:8081"
+      },
+      "vmArgs": "-Dspring.profiles.active=local",
+      "preLaunchTask": "Start Databases"
+    },
+
+    // ─── Debug Configurations ──────────────────────────────────────────────────
+    {
+      "type": "java",
+      "name": "🐛 Debug User Service",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 5005
+    },
+    {
+      "type": "java",
+      "name": "🐛 Debug Product Service",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 5006
+    },
+    {
+      "type": "java",
+      "name": "🐛 Debug Order Service",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 5007
+    },
+
+    // ─── Frontend ──────────────────────────────────────────────────────────────
+    {
+      "type": "chrome",
+      "name": "🌐 Debug React Frontend",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/frontend/src",
+      "preLaunchTask": "Start Frontend Dev Server"
+    },
+
+    // ─── Vitest ───────────────────────────────────────────────────────────────
+    {
+      "type": "node",
+      "name": "🧪 Debug Vitest Tests",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/frontend",
+      "program": "${workspaceFolder}/frontend/node_modules/vitest/vitest.mjs",
+      "args": ["--reporter=verbose"],
+      "console": "integratedTerminal",
+      "smartStep": true
+    }
+  ],
+
+  // ─── Compound — Launch All Services Together ─────────────────────────────
+  "compounds": [
+    {
+      "name": "🚀 Launch All Services",
+      "configurations": [
+        "▶ User Service",
+        "▶ Product Service",
+        "▶ Order Service"
+      ],
+      "stopAll": true
+    },
+    {
+      "name": "🚀 Launch Full Stack",
+      "configurations": [
+        "▶ User Service",
+        "▶ Product Service",
+        "▶ Order Service",
+        "🌐 Debug React Frontend"
+      ],
+      "stopAll": true
+    }
+  ]
+}
