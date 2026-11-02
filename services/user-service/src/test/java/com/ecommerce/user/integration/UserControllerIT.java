@@ -15,6 +15,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -64,7 +65,7 @@ class UserControllerIT {
                 .andExpect(jsonPath("$.email").value("integration@test.com"))
                 .andExpect(jsonPath("$.id").isNotEmpty());
 
-        assertThat(userRepository.existsByEmail("integration@test.com")).isTrue();
+        assertTrue(userRepository.existsByEmail("integration@test.com"));
     }
 
     @Test
