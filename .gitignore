@@ -65,6 +65,7 @@ crash.log
 .DS_Store
 Thumbs.db
 desktop.ini
+*.lnk
 
 # ─── Docker ───────────────────────────────────────────────────────────────────
 .dockerignore
