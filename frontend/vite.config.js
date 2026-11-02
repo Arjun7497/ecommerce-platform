@@ -19,9 +19,9 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api/users': { target: 'http://localhost:8081', changeOrigin: true },
-      '/api/products': { target: 'http://localhost:8082', changeOrigin: true },
-      '/api/orders': { target: 'http://localhost:8083', changeOrigin: true },
+      '/api/v1/users': { target: 'http://localhost:8081', changeOrigin: true },
+      '/api/v1/products': { target: 'http://localhost:8082', changeOrigin: true },
+      '/api/v1/orders': { target: 'http://localhost:8083', changeOrigin: true },
     },
   },
 })

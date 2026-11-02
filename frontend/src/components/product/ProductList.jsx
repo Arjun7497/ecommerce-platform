@@ -39,15 +39,15 @@ export default function ProductList({ category, searchKeyword }) {
 
   if (loading) {
     return (
-      <div data-testid="loading-spinner" className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
+      <div data-testid="loading-spinner" className="catalog-state">
+        <div className="loading-indicator" />
       </div>
     )
   }
 
   if (error) {
     return (
-      <div data-testid="error-message" className="text-center text-red-500 p-8">
+      <div data-testid="error-message" className="catalog-state catalog-state--error">
         {error}
       </div>
     )
@@ -55,7 +55,7 @@ export default function ProductList({ category, searchKeyword }) {
 
   if (products.length === 0) {
     return (
-      <div data-testid="empty-state" className="text-center text-gray-500 p-8">
+      <div data-testid="empty-state" className="catalog-state">
         No products found.
       </div>
     )
@@ -63,28 +63,23 @@ export default function ProductList({ category, searchKeyword }) {
 
   return (
     <div>
-      <div
-        data-testid="product-grid"
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-      >
+      <div data-testid="product-grid" className="product-grid">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
       {totalPages > 1 && (
-        <div className="flex justify-center gap-2 mt-8">
+        <div className="pagination">
           <button
             onClick={() => setPage((p) => Math.max(0, p - 1))}
             disabled={page === 0}
-            className="px-4 py-2 border rounded disabled:opacity-50"
           >
             Previous
           </button>
-          <span className="px-4 py-2">Page {page + 1} of {totalPages}</span>
+          <span>Page {page + 1} of {totalPages}</span>
           <button
             onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
             disabled={page === totalPages - 1}
-            className="px-4 py-2 border rounded disabled:opacity-50"
           >
             Next
           </button>

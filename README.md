@@ -96,6 +96,7 @@ Each microservice has its **own database** (database-per-service pattern). The o
 
 ```
 ecommerce-platform/
+├── pom.xml                            # Maven reactor for all backend services
 ├── .github/
 │   └── workflows/
 │       ├── user-service-ci.yml        # 5-stage pipeline: test → build → deploy
@@ -156,7 +157,7 @@ ecommerce-platform/
 │           ├── unit/OrderServiceTest.java     # 4 tests
 │           └── features/order_placement.feature   # 5 scenarios
 │
-├── frontend/                          # Port 5173 (dev) / 3000 (docker)
+├── frontend/                          # React/Vite app; independent npm project
 │   ├── src/
 │   │   ├── components/product/
 │   │   │   ├── ProductCard.jsx
@@ -211,6 +212,13 @@ node -version        # Should show: v20...
 docker -version      # Should show: Docker version 24+...
 docker compose version  # Should show: Docker Compose version v2...
 ```
+
+The root `pom.xml` aggregates the user, product, and order services. From the repository root, build and test all backend modules with:
+```bash
+mvn clean verify
+```
+
+The frontend is an npm project under `frontend/`; install and test it separately with `npm ci` and `npm test`.
 
 ---
 
@@ -269,7 +277,7 @@ These are auto-recommended when you open the workspace. Install all of them.
 Starts everything in one command: 3 databases + 3 Java services + React frontend.
 
 ```bash
-cd C:\Users\785368\ecommerce-platform
+cd C:\path\to\ecommerce-platform
 
 # Build and start all containers
 docker compose up --build
@@ -303,7 +311,7 @@ Better for active development — lets you restart individual services and see l
 
 #### Step 1 — Start only the databases
 ```bash
-cd C:\Users\785368\ecommerce-platform
+cd C:\path\to\ecommerce-platform
 docker compose up postgres-user postgres-product postgres-order -d --wait
 ```
 
