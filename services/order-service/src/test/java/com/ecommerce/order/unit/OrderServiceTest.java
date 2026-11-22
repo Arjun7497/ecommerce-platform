@@ -25,6 +25,7 @@ class OrderServiceTest {
 
     @Mock private OrderRepository orderRepository;
     @Mock private ProductClient productClient;
+    @Mock private org.springframework.context.ApplicationEventPublisher eventPublisher;
     @InjectMocks private OrderService orderService;
 
     @Nested
