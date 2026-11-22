@@ -4,6 +4,7 @@ import com.ecommerce.product.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +21,13 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
            "(LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
            "LOWER(p.description) LIKE LOWER(CONCAT('%', :keyword, '%')))")
     Page<Product> searchByKeyword(String keyword, Pageable pageable);
+
+    /** Atomic decrement, floored at zero (stock was validated synchronously at order time). */
+    @Modifying
+    @Query("UPDATE Product p SET p.stockQuantity = CASE WHEN p.stockQuantity > :qty THEN p.stockQuantity - :qty ELSE 0 END WHERE p.id = :id")
+    int decrementStock(UUID id, int qty);
+
+    @Modifying
+    @Query("UPDATE Product p SET p.stockQuantity = p.stockQuantity + :qty WHERE p.id = :id")
+    int incrementStock(UUID id, int qty);
 }

@@ -89,8 +89,11 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-product:5432/productdb
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
     depends_on:
       postgres-product:
+        condition: service_healthy
+      kafka:
         condition: service_healthy
 
   order-service:
