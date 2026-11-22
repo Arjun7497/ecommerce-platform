@@ -9,6 +9,9 @@ import com.ecommerce.order.model.Order;
 import com.ecommerce.order.model.OrderItem;
 import com.ecommerce.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import com.ecommerce.order.event.OrderCreatedEvent;
+import com.ecommerce.order.event.OrderStatusChangedEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final ProductClient productClient;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
     public OrderResponse createOrder(CreateOrderRequest request) {
@@ -58,7 +62,9 @@ public class OrderService {
             order.getItems().add(item);
         });
 
-        return toResponse(orderRepository.save(order));
+        Order saved = orderRepository.save(order);
+        eventPublisher.publishEvent(OrderCreatedEvent.from(saved));
+        return toResponse(saved);
     }
 
     public Page<OrderResponse> findByUser(UUID userId, Pageable pageable) {
@@ -75,8 +81,12 @@ public class OrderService {
     public OrderResponse updateStatus(UUID id, Order.OrderStatus status) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException(id));
+        Order.OrderStatus previous = order.getStatus();
         order.setStatus(status);
-        return toResponse(orderRepository.save(order));
+        Order saved = orderRepository.save(order);
+        eventPublisher.publishEvent(new OrderStatusChangedEvent(
+                saved.getId(), saved.getUserId(), previous, saved.getStatus()));
+        return toResponse(saved);
     }
 
     private OrderResponse toResponse(Order order) {
