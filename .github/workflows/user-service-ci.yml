@@ -183,4 +183,4 @@ jobs:
 
       - name: Notify deployment success
         if: success()
-        run: echo "User service deployed successfully. Image: ${{ needs.build-and-push.outputs.image }}"
+        run: 'echo "User service deployed successfully. Image: ${{ needs.build-and-push.outputs.image }}"'
