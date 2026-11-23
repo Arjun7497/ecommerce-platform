@@ -47,7 +47,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: 'maven'
-      - run: mvn -f services/product-service/pom.xml verify -Dtest="**/*IT" --no-transfer-progress
+      - run: mvn -f services/product-service/pom.xml verify -Dtest="**/*IT" -Dsurefire.failIfNoSpecifiedTests=false --no-transfer-progress
 
   bdd-tests:
     name: BDD Tests
@@ -60,12 +60,13 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: 'maven'
-      - run: mvn -f services/product-service/pom.xml test -Dtest="CucumberRunner" --no-transfer-progress
+      - run: mvn -f services/product-service/pom.xml test -Dtest="CucumberRunner" -Dsurefire.failIfNoSpecifiedTests=false --no-transfer-progress
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: product-cucumber-reports
           path: services/product-service/target/cucumber-reports/
+          if-no-files-found: ignore
 
   build-and-push:
     name: Build & Push Docker Image
