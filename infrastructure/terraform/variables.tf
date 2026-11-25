@@ -21,3 +21,15 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
+
+variable "enable_frontend" {
+  description = "Deploy the frontend on ECS (playground allows only 3 Fargate tasks per cluster)"
+  type        = bool
+  default     = false
+}
+
+variable "execution_role_arn" {
+  description = "Existing ECS task execution role ARN; leave empty to let Terraform create one"
+  type        = string
+  default     = ""
+}
